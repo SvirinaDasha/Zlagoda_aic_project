@@ -273,4 +273,26 @@ public class StoreProductDAO {
         }
         return details;
     }
+
+    public void updateProductQuantity(String upc, int newQuantity) throws SQLException {
+        String query = "UPDATE Store_Product SET products_number = ? WHERE UPC = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            System.out.println(newQuantity+" "+upc);
+            preparedStatement.setInt(1, newQuantity);
+            preparedStatement.setString(2, upc);
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    public StoreProduct convertToStoreProduct(StoreProductDetails details) {
+        StoreProduct storeProduct = new StoreProduct();
+        storeProduct.setUpc(details.getUpc());
+        storeProduct.setUpcProm(details.getUpcProm());
+        storeProduct.setProductId(details.getProductId());
+        storeProduct.setSellingPrice(details.getSellingPrice());
+        storeProduct.setProductsNumber(details.getProductsNumber());
+        storeProduct.setPromotionalProduct(details.isPromotionalProduct());
+        return storeProduct;
+    }
+
 }

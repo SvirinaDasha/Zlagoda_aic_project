@@ -6,7 +6,7 @@ public class Check {
     private String checkNumber;
     private String employeeId;
     private String cardNumber;
-    private Timestamp printDate;
+    private String printDate;
     private double sumTotal;
     private double vat;
 
@@ -34,11 +34,11 @@ public class Check {
         this.cardNumber = cardNumber;
     }
 
-    public Timestamp getPrintDate() {
+    public String getPrintDate() {
         return printDate;
     }
 
-    public void setPrintDate(Timestamp printDate) {
+    public void setPrintDate(String printDate) {
         this.printDate = printDate;
     }
 

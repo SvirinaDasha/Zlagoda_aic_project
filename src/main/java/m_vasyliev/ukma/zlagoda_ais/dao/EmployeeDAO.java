@@ -3,14 +3,12 @@ package m_vasyliev.ukma.zlagoda_ais.dao;
 import m_vasyliev.ukma.zlagoda_ais.model.Employee;
 import m_vasyliev.ukma.zlagoda_ais.dao.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmployeeDAO {
     private Connection connection;
@@ -21,6 +19,29 @@ public class EmployeeDAO {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Employee> getAllEmployees() throws SQLException {
+        List<Employee> employees = new ArrayList<>();
+        String query = "SELECT * FROM Employee";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Employee employee = new Employee();
+                employee.setIdEmployee(resultSet.getString("id_employee"));
+                employee.setSurname(resultSet.getString("empl_surname"));
+                employee.setName(resultSet.getString("empl_name"));
+                employee.setPatronymic(resultSet.getString("empl_patronymic"));
+                employee.setRole(resultSet.getString("empl_role"));
+                employee.setPhoneNumber(resultSet.getString("phone_number"));
+                employee.setCity(resultSet.getString("city"));
+                employee.setStreet(resultSet.getString("street"));
+                employee.setZipCode(resultSet.getString("zip_code"));
+                employees.add(employee);
+            }
+        }
+        return employees;
     }
 
     public Employee getEmployeeById(String id) {
@@ -35,18 +56,18 @@ public class EmployeeDAO {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
                 employee = new Employee();
-                employee.setId(resultSet.getString("id_employee"));
+                employee.setIdEmployee(resultSet.getString("id_employee"));
                 employee.setSurname(resultSet.getString("empl_surname"));
                 employee.setName(resultSet.getString("empl_name"));
                 employee.setPatronymic(resultSet.getString("empl_patronymic"));
                 employee.setRole(resultSet.getString("empl_role"));
-                employee.setSalary(resultSet.getBigDecimal("salary"));
+                employee.setSalary(resultSet.getDouble("salary"));
 
                 String date_of_birth = resultSet.getString("date_of_birth");
-                employee.setDateOfBirth(new java.sql.Date(sdf.parse(date_of_birth).getTime()));
+                employee.setDateOfBirth(new java.sql.Date(sdf.parse(date_of_birth).getTime()).toString());
 
                 String date_of_start = resultSet.getString("date_of_start");
-                employee.setDateOfStart(new java.sql.Date(sdf.parse(date_of_start).getTime()));
+                employee.setDateOfStart(new java.sql.Date(sdf.parse(date_of_start).getTime()).toString());
                 employee.setPhoneNumber(resultSet.getString("phone_number"));
                 employee.setCity(resultSet.getString("city"));
                 employee.setStreet(resultSet.getString("street"));

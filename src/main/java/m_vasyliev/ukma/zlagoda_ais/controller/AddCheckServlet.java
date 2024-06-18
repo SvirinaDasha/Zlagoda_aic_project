@@ -10,12 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.text.ParseException;
 
 @WebServlet("/add-check")
 public class AddCheckServlet extends HttpServlet {
@@ -81,7 +85,13 @@ public class AddCheckServlet extends HttpServlet {
         if ("addProduct".equals(action)) {
             addProductToCheck(request, response);
         } else if ("submitCheck".equals(action)) {
-            submitCheck(request, response);
+            try {
+                submitCheck(request, response);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         } else if ("removeProduct".equals(action)) {
             removeProductFromCheck(request, response);
         } else if ("selectCard".equals(action)) {
@@ -126,7 +136,6 @@ public class AddCheckServlet extends HttpServlet {
         StoreProductDetails storeProduct = storeProductDAO.getStoreProductDetailsByUpc(upc);
         double price = storeProduct.getSellingPrice();
 
-        // Apply discount if customer card is selected
         if (cardNumber != null && !cardNumber.isEmpty()) {
             CustomerCard customerCard = customerCardDAO.getCustomerCardByNumber(cardNumber);
             if (customerCard != null) {
@@ -164,14 +173,15 @@ public class AddCheckServlet extends HttpServlet {
         doGet(request, response);
     }
 
-    private void submitCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void submitCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
         User user = (User) request.getSession().getAttribute("user");
         String employeeId = user.getIdEmployee();
         String cardNumber = (String) request.getSession().getAttribute("selectedCardNumber");
         List<Sale> sales = (List<Sale>) request.getSession().getAttribute("sales");
 
-        LocalDateTime now = LocalDateTime.now();
-        Timestamp timestamp = Timestamp.valueOf(now);
+        LocalDate today = LocalDate.now();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date sqlDate = new Date(sdf.parse(today.toString()).getTime());
 
         String checkNumber = UUID.randomUUID().toString();
 
@@ -179,7 +189,7 @@ public class AddCheckServlet extends HttpServlet {
         salesCheck.setCheckNumber(checkNumber);
         salesCheck.setEmployeeId(employeeId);
         salesCheck.setCardNumber(cardNumber);
-        salesCheck.setPrintDate(timestamp);
+        salesCheck.setPrintDate(sqlDate.toString());
 
         double sumTotal = 0.0;
         for (Sale sale : sales) {
@@ -188,10 +198,29 @@ public class AddCheckServlet extends HttpServlet {
             sale.setCheckNumber(checkNumber);
             sale.setSellingPrice(total);
             saleDAO.addSale(sale);
-        }
 
+            System.out.println(sale.getUpc());
+            StoreProduct storeProduct = storeProductDAO.getStoreProductByUpc(sale.getUpc());
+            if (storeProduct != null) {
+                int newQuantity = storeProduct.getProductsNumber() - sale.getProductNumber();
+                if (newQuantity < 0) {
+                    request.getSession().setAttribute("errorMessage", "Insufficient stock for product: " +storeProductDAO.getStoreProductDetailsByUpc(sale.getUpc()).getProductName() );
+                    doGet(request, response);
+                    return;
+                }
+                storeProductDAO.updateProductQuantity(storeProduct.getUpc(),newQuantity);
+            }
+        }
+        if (sales.isEmpty()) {
+            request.getSession().setAttribute("errorMessage", "Empty check");
+            doGet(request, response);
+            return;
+        }
+        else{
+            request.getSession().setAttribute("errorMessage", null);
+        }
         salesCheck.setSumTotal(sumTotal);
-        salesCheck.setVat(sumTotal * 0.2); // Assuming 20% VAT
+        salesCheck.setVat(sumTotal * 0.2);
 
         checkDAO.saveCheck(salesCheck);
         request.getSession().removeAttribute("sales");

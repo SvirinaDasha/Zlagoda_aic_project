@@ -5,6 +5,7 @@ public class Product {
     private int categoryNumber;
     private String productName;
     private String characteristics;
+    private String categoryName;
 
     // Конструктор без параметрів
     public Product() {}
@@ -55,5 +56,12 @@ public class Product {
 
     public void setCharacteristics(String characteristics) {
         this.characteristics = characteristics;
+    }
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

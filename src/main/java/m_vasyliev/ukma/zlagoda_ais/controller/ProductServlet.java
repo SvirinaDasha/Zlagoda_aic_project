@@ -61,11 +61,27 @@ public class ProductServlet extends HttpServlet {
 
     private void listProduct(HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, IOException, ServletException {
-        List<Product> listProduct = productDAO.getAllProducts();
-        for (Product product : listProduct) {
-            System.out.println(product.getId() + " " + product.getProductName());
+        String search = req.getParameter("search");
+        String category = req.getParameter("category");
+        List<Product> listProduct;
+        if (search != null && !search.isEmpty()) {
+            if (category != null && !category.equals("-1")) {
+                int categoryNumber = Integer.parseInt(category);
+                listProduct = productDAO.searchProductsByNameAndCategoryWithCategoryName(search, categoryNumber);
+            } else {
+                listProduct = productDAO.searchProductsByNameWithCategoryName(search);
+            }
+        } else if (category != null && !category.equals("-1")) {
+            int categoryNumber = Integer.parseInt(category);
+            listProduct = productDAO.getProductsByCategoryWithCategoryName(categoryNumber);
+        } else {
+            listProduct = productDAO.getAllProductsWithCategory("product_name");
         }
+
+        List<Category> listCategory = categoryDAO.getAllCategories();
         req.setAttribute("listProduct", listProduct);
+        req.setAttribute("listCategory", listCategory);
+        req.setAttribute("selectedCategory", category); // Передаємо вибрану категорію
         req.getRequestDispatcher("/products.jsp").forward(req, resp);
     }
 

@@ -1,5 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%
   if (session == null || session.getAttribute("user") == null) {
@@ -8,7 +9,7 @@
   }
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Products - ZLAGODA Supermarket</title>
@@ -34,6 +35,22 @@
 <main>
   <section>
     <h2>Product List</h2>
+    <form action="products" method="get">
+      <div>
+        <label for="search">Search by name:</label>
+        <input type="text" id="search" name="search" value="${param.search}">
+      </div>
+      <div>
+        <label for="category">Filter by category:</label>
+        <select id="category" name="category">
+          <option value="-1">All</option>
+          <c:forEach var="category" items="${listCategory}">
+            <option value="${category.categoryNumber}" <c:if test="${selectedCategory == category.categoryNumber}">selected</c:if>>${category.categoryName}</option>
+          </c:forEach>
+        </select>
+      </div>
+      <button type="submit">Apply</button>
+    </form>
     <a href="products?action=new">Add New Product</a>
     <table border="1">
       <tr>
@@ -46,7 +63,7 @@
       <c:forEach var="product" items="${listProduct}">
         <tr>
           <td>${product.id}</td>
-          <td>${product.categoryNumber}</td>
+          <td>${product.categoryName}</td>
           <td>${product.productName}</td>
           <td>${product.characteristics}</td>
           <td>

@@ -1,28 +1,27 @@
 package m_vasyliev.ukma.zlagoda_ais.model;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 
 public class Employee {
-    private String id;
+    private String idEmployee;
     private String surname;
     private String name;
     private String patronymic;
     private String role;
-    private BigDecimal salary;
-    private Date dateOfBirth;
-    private Date dateOfStart;
     private String phoneNumber;
     private String city;
     private String street;
     private String zipCode;
+    private String dateOfBirth;
+    private String dateOfStart;
+    private double salary;
 
-    public String getId() {
-        return id;
+    public String getIdEmployee() {
+        return idEmployee;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdEmployee(String idEmployee) {
+        this.idEmployee = idEmployee;
     }
 
     public String getSurname() {
@@ -57,30 +56,6 @@ public class Employee {
         this.role = role;
     }
 
-    public BigDecimal getSalary() {
-        return salary;
-    }
-
-    public void setSalary(BigDecimal salary) {
-        this.salary = salary;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public Date getDateOfStart() {
-        return dateOfStart;
-    }
-
-    public void setDateOfStart(Date dateOfStart) {
-        this.dateOfStart = dateOfStart;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -112,4 +87,26 @@ public class Employee {
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getDateOfStart() {
+        return dateOfStart;
+    }
+
+    public void setDateOfStart(String dateOfStart) {
+        this.dateOfStart = dateOfStart;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {}
 }

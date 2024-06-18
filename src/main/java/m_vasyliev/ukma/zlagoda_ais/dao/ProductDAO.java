@@ -106,6 +106,98 @@ public class ProductDAO {
         }
     }
 
+    public List<Product> searchProductsByNameAndCategoryWithCategoryName(String name, int categoryNumber) {
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT p.*, c.category_name FROM Product p JOIN Category c ON p.category_number = c.category_number WHERE p.product_name LIKE ? AND p.category_number = ? ORDER BY p.product_name";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, "%" + name + "%");
+            preparedStatement.setInt(2, categoryNumber);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("id_product"));
+                product.setCategoryNumber(resultSet.getInt("category_number"));
+                product.setProductName(resultSet.getString("product_name"));
+                product.setCharacteristics(resultSet.getString("characteristics"));
+                product.setCategoryName(resultSet.getString("category_name"));
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    public List<Product> getProductsByCategoryWithCategoryName(int categoryNumber) {
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT p.*, c.category_name FROM Product p JOIN Category c ON p.category_number = c.category_number WHERE p.category_number = ? ORDER BY p.product_name";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, categoryNumber);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("id_product"));
+                product.setCategoryNumber(resultSet.getInt("category_number"));
+                product.setProductName(resultSet.getString("product_name"));
+                product.setCharacteristics(resultSet.getString("characteristics"));
+                product.setCategoryName(resultSet.getString("category_name"));
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    public List<Product> getAllProductsWithCategory(String sort) {
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT p.*, c.category_name FROM Product p JOIN Category c ON p.category_number = c.category_number ORDER BY " + sort;
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("id_product"));
+                product.setCategoryNumber(resultSet.getInt("category_number"));
+                product.setProductName(resultSet.getString("product_name"));
+                product.setCharacteristics(resultSet.getString("characteristics"));
+                product.setCategoryName(resultSet.getString("category_name"));
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    public List<Product> searchProductsByNameWithCategoryName(String name) {
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT p.*, c.category_name FROM Product p JOIN Category c ON p.category_number = c.category_number WHERE p.product_name LIKE ? ORDER BY p.product_name";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, "%" + name + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("id_product"));
+                product.setCategoryNumber(resultSet.getInt("category_number"));
+                product.setProductName(resultSet.getString("product_name"));
+                product.setCharacteristics(resultSet.getString("characteristics"));
+                product.setCategoryName(resultSet.getString("category_name"));
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
     public boolean checkConnection() {
         try {
             return connection != null && !connection.isClosed();

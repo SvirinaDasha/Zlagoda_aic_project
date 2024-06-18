@@ -30,7 +30,7 @@
     <table border="1">
       <tr>
         <th>ID</th>
-        <td>${employee.id}</td>
+        <td>${employee.idEmployee}</td>
       </tr>
       <tr>
         <th>Surname</th>

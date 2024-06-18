@@ -36,6 +36,10 @@
             <div class="success-message">${successMessage}</div>
         </c:if>
 
+        <c:if test="${not empty errorMessage}">
+            <div class="error">${errorMessage}</div>
+        </c:if>
+
         <form action="add-check" method="post">
             <div class="form-group">
                 <label for="employeeName">Employee Name:</label>
@@ -58,7 +62,7 @@
             <input type="hidden" name="cardNumber" value="${selectedCardNumber}" />
             <div class="form-group">
                 <label for="productSelect">Select Product:</label>
-                <select id="productSelect" name="upc" onchange="updateProductDetails()">
+                <select id="productSelect" name="upc" onchange="updateProductDetails()" required>
                     <option value="">-- Select --</option>
                     <c:forEach var="product" items="${products}">
                         <option value="${product.upc}" data-name="${product.productName}" data-price="${product.sellingPrice}" data-promotional="${product.promotionalProduct}">
@@ -73,7 +77,7 @@
             </div>
             <div class="form-group">
                 <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" name="quantity" min="1" />
+                <input type="number" id="quantity" name="quantity" min="1" required/>
             </div>
             <input type="hidden" name="action" value="addProduct" />
             <button type="submit">Add Product</button>
