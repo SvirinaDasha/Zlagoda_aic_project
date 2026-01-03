@@ -1,11 +1,12 @@
-package m_vasyliev.ukma.zlagoda_ais.model;
+package m_vasyliev.ukma.zlagoda_ais.dto;
 
 import java.sql.Timestamp;
 
-public class Check {
+public class CheckDTO {
     private String checkNumber;
-    private String employeeId;
+    private String employeeFullName;
     private String cardNumber;
+    private String customerFullName;
     private String printDate;
     private double sumTotal;
     private double vat;
@@ -18,12 +19,12 @@ public class Check {
         this.checkNumber = checkNumber;
     }
 
-    public String getEmployeeId() {
-        return employeeId;
+    public String getEmployeeFullName() {
+        return employeeFullName;
     }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployeeFullName(String employeeFullName) {
+        this.employeeFullName = employeeFullName;
     }
 
     public String getCardNumber() {
@@ -32,6 +33,14 @@ public class Check {
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    public String getCustomerFullName() {
+        return customerFullName;
+    }
+
+    public void setCustomerFullName(String customerFullName) {
+        this.customerFullName = customerFullName;
     }
 
     public String getPrintDate() {
@@ -46,7 +55,7 @@ public class Check {
         return sumTotal;
     }
 
-    public void setSumTotal(Double sumTotal) {
+    public void setSumTotal(double sumTotal) {
         this.sumTotal = sumTotal;
     }
 

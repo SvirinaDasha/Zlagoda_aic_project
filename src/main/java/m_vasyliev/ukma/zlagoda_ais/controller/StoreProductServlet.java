@@ -1,16 +1,19 @@
 package m_vasyliev.ukma.zlagoda_ais.controller;
 
+import m_vasyliev.ukma.zlagoda_ais.utils.Validator;
 import m_vasyliev.ukma.zlagoda_ais.dao.ProductDAO;
 import m_vasyliev.ukma.zlagoda_ais.dao.StoreProductDAO;
 import m_vasyliev.ukma.zlagoda_ais.dto.StoreProductDetails;
 import m_vasyliev.ukma.zlagoda_ais.model.Product;
 import m_vasyliev.ukma.zlagoda_ais.model.StoreProduct;
+import m_vasyliev.ukma.zlagoda_ais.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
@@ -22,6 +25,13 @@ public class StoreProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
+
         String action = req.getParameter("action");
         String filter = req.getParameter("filter");
         String sort = req.getParameter("sort");
@@ -33,7 +43,7 @@ public class StoreProductServlet extends HttpServlet {
             filter = "all";
         }
         if (sort == null) {
-            sort = "products_number";  // Default sort by quantity
+            sort = "products_number";
         }
         try {
             if (upcSearch != null && !upcSearch.isEmpty()) {
@@ -41,19 +51,39 @@ public class StoreProductServlet extends HttpServlet {
             } else {
                 switch (action) {
                     case "new":
-                        showNewForm(req, resp);
+                        if (user.getRole().equals("Manager")) {
+                            showNewForm(req, resp);
+                        } else {
+                            resp.sendRedirect("store-products");
+                        }
                         break;
                     case "insert":
-                        insertStoreProduct(req, resp);
+                        if (user.getRole().equals("Manager")) {
+                            insertStoreProduct(req, resp);
+                        } else {
+                            resp.sendRedirect("store-products");
+                        }
                         break;
                     case "delete":
-                        deleteStoreProduct(req, resp, filter, sort);
+                        if (user.getRole().equals("Manager")) {
+                            deleteStoreProduct(req, resp, filter, sort);
+                        } else {
+                            resp.sendRedirect("store-products");
+                        }
                         break;
                     case "edit":
-                        showEditForm(req, resp);
+                        if (user.getRole().equals("Manager")) {
+                            showEditForm(req, resp);
+                        } else {
+                            resp.sendRedirect("store-products");
+                        }
                         break;
                     case "update":
-                        updateStoreProduct(req, resp);
+                        if (user.getRole().equals("Manager")) {
+                            updateStoreProduct(req, resp);
+                        } else {
+                            resp.sendRedirect("store-products");
+                        }
                         break;
                     default:
                         listStoreProducts(req, resp, filter, sort);
@@ -188,6 +218,17 @@ public class StoreProductServlet extends HttpServlet {
         storeProduct.setSellingPrice(sellingPrice);
         storeProduct.setProductsNumber(productsNumber);
         storeProduct.setPromotionalProduct(promotionalProduct);
+
+        if(!Validator.isNonNegative(storeProduct.getProductsNumber())){
+            req.setAttribute("error", "Products number can`t be negative!");
+            showEditForm(req, resp);
+            return;
+        }
+        if(!Validator.isNonNegative(storeProduct.getSellingPrice())){
+            req.setAttribute("error", "Selling price can`t be negative!");
+            showEditForm(req, resp);
+            return;
+        }
 
         try {
             storeProductDAO.updateStoreProduct(storeProduct);

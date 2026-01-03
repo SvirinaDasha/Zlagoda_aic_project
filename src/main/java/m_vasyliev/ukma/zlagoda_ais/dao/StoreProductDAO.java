@@ -228,11 +228,10 @@ public class StoreProductDAO {
 
     public List<StoreProductDetails> getAllStoreProductDetails(String sort) {
         List<StoreProductDetails> storeProductDetails = new ArrayList<>();
-        String query = "SELECT sp.*, p.product_name FROM Store_Product sp JOIN Product p ON sp.id_product = p.id_product ORDER BY " + sort;
+        String query = "SELECT sp.*, p.product_name FROM Store_Product sp LEFT JOIN Product p ON sp.id_product = p.id_product ORDER BY " + sort;
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
-
             while (resultSet.next()) {
                 StoreProductDetails details = new StoreProductDetails();
                 details.setUpc(resultSet.getString("UPC"));
@@ -241,7 +240,7 @@ public class StoreProductDAO {
                 details.setSellingPrice(resultSet.getDouble("selling_price"));
                 details.setProductsNumber(resultSet.getInt("products_number"));
                 details.setPromotionalProduct(resultSet.getBoolean("promotional_product"));
-                details.setProductName(resultSet.getString("product_name"));
+                details.setProductName(resultSet.getString("product_name") != null ? resultSet.getString("product_name") : "Unknown");
                 storeProductDetails.add(details);
             }
         } catch (SQLException e) {
@@ -250,11 +249,12 @@ public class StoreProductDAO {
         return storeProductDetails;
     }
 
+
     public StoreProductDetails getStoreProductDetailsByUpc(String upc) {
         StoreProductDetails details = null;
         String query = "SELECT sp.selling_price, sp.products_number, p.product_name, p.characteristics " +
                 "FROM Store_Product sp " +
-                "JOIN Product p ON sp.id_product = p.id_product " +
+                "LEFT JOIN Product p ON sp.id_product = p.id_product " +
                 "WHERE sp.UPC = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -265,14 +265,16 @@ public class StoreProductDAO {
                 details = new StoreProductDetails();
                 details.setSellingPrice(resultSet.getDouble("selling_price"));
                 details.setProductsNumber(resultSet.getInt("products_number"));
-                details.setProductName(resultSet.getString("product_name"));
-                details.setCharacteristics(resultSet.getString("characteristics"));
+                details.setProductName(resultSet.getString("product_name") != null ? resultSet.getString("product_name") : "Unknown");
+                details.setCharacteristics(resultSet.getString("characteristics") != null ? resultSet.getString("characteristics") : "Unknown");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return details;
     }
+
+
 
     public void updateProductQuantity(String upc, int newQuantity) throws SQLException {
         String query = "UPDATE Store_Product SET products_number = ? WHERE UPC = ?";

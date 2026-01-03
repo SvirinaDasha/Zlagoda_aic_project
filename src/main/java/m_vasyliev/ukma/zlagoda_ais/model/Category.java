@@ -4,6 +4,15 @@ public class Category {
     private int categoryNumber;
     private String categoryName;
 
+    public Category(int id, String name) {
+        categoryNumber = id;
+        categoryName = name;
+    }
+
+    public Category() {
+
+    }
+
     public int getCategoryNumber() {
         return categoryNumber;
     }

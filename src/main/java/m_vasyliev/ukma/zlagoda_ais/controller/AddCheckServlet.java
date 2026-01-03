@@ -1,5 +1,6 @@
 package m_vasyliev.ukma.zlagoda_ais.controller;
 
+import m_vasyliev.ukma.zlagoda_ais.utils.Validator;
 import m_vasyliev.ukma.zlagoda_ais.dao.*;
 import m_vasyliev.ukma.zlagoda_ais.dto.StoreProductDetails;
 import m_vasyliev.ukma.zlagoda_ais.model.*;
@@ -41,7 +42,6 @@ public class AddCheckServlet extends HttpServlet {
         List<StoreProductDetails> products = storeProductDAO.getAllStoreProductDetails("products_number");
         List<CustomerCard> customerCards = customerCardDAO.getAllCustomerCards();
 
-        // Get employee details
         User user = (User) request.getSession().getAttribute("user");
         Employee employee = employeeDAO.getEmployeeById(user.getIdEmployee());
         String employeeFullName = employee.getSurname() + " " + employee.getName() + " " + employee.getPatronymic();
@@ -73,7 +73,6 @@ public class AddCheckServlet extends HttpServlet {
         String action = request.getParameter("action");
         String cardNumber = request.getParameter("cardNumber");
 
-        // Save the selected card number to the session
         if (cardNumber != null && !cardNumber.isEmpty()) {
             request.getSession().setAttribute("selectedCardNumber", cardNumber);
             applyDiscountToSales(request, cardNumber);
@@ -102,7 +101,7 @@ public class AddCheckServlet extends HttpServlet {
     private void applyDiscountToSales(HttpServletRequest request, String cardNumber) {
         List<Sale> sales = (List<Sale>) request.getSession().getAttribute("sales");
         if (sales != null && cardNumber != null) {
-            CustomerCard customerCard = customerCardDAO.getCustomerCardByNumber(cardNumber);
+            CustomerCard customerCard = customerCardDAO.getCustomerCardByCardNumber(cardNumber);
             if (customerCard != null) {
                 double discount = customerCard.getPercent();
                 for (Sale sale : sales) {
@@ -131,13 +130,17 @@ public class AddCheckServlet extends HttpServlet {
     private void addProductToCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String upc = request.getParameter("upc");
         int quantity = Integer.parseInt(request.getParameter("quantity"));
+        if(!Validator.isNonNegative(quantity)){
+            request.getSession().setAttribute("errorMessage", "Quantity must be non-negative!");
+            return;
+        }
         String cardNumber = (String) request.getSession().getAttribute("selectedCardNumber");
 
         StoreProductDetails storeProduct = storeProductDAO.getStoreProductDetailsByUpc(upc);
         double price = storeProduct.getSellingPrice();
 
         if (cardNumber != null && !cardNumber.isEmpty()) {
-            CustomerCard customerCard = customerCardDAO.getCustomerCardByNumber(cardNumber);
+            CustomerCard customerCard = customerCardDAO.getCustomerCardByCardNumber(cardNumber);
             if (customerCard != null) {
                 double discount = customerCard.getPercent();
                 price = price - (price * discount / 100);

@@ -1,6 +1,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    if (session == null || session.getAttribute("user") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    } else {
+        String userRole = ((m_vasyliev.ukma.zlagoda_ais.model.User) session.getAttribute("user")).getRole();
+        request.setAttribute("userRole", userRole);
+        if (userRole.equals("Cashier")) {
+            response.sendRedirect("index.jsp");
+            return;
+        }
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,9 +39,26 @@
     <script>
         function toggleFields() {
             var reportType = document.getElementById('reportType').value;
-            document.getElementById('dateFields').style.display = (reportType === 'TSBP' || reportType === 'TSBCAP' || reportType === 'TUSBPAP') ? 'block' : 'none';
-            document.getElementById('cashierField').style.display = (reportType === 'TSBCAP') ? 'block' : 'none';
-            document.getElementById('productField').style.display = (reportType === 'TUSBPAP') ? 'block' : 'none';
+            var showDateFields = reportType === 'TSBP' || reportType === 'TSBCAP' || reportType === 'TUSBPAP' || reportType === 'checks' || reportType === 'product-sales';
+            var showCashierField = reportType === 'TSBCAP' || reportType === 'checks';
+            var showProductField = reportType === 'TUSBPAP' || reportType === 'product-sales';
+            document.getElementById('dateFields').style.display = showDateFields ? 'block' : 'none';
+            document.getElementById('cashierField').style.display = showCashierField ? 'block' : 'none';
+            document.getElementById('productField').style.display = showProductField ? 'block' : 'none';
+
+            if (!showDateFields) {
+                document.getElementById('startDateInput').value = "";
+                document.getElementById('endDateInput').value = "";
+            }
+
+            if (!showCashierField) {
+                document.getElementById('cashierSelect').value = "";
+            }
+
+            if (!showProductField) {
+                document.getElementById('productSelect').value = "";
+                document.getElementById('productNameInput').value = "";
+            }
         }
 
         function setDefaultDates() {
@@ -46,12 +76,7 @@
 <body>
 <header class="non-printable">
     <h1>Reports</h1>
-    <nav>
-        <ul>
-            <li><a href="index.jsp">Home</a></li>
-            <li><a href="logout">Logout</a></li>
-        </ul>
-    </nav>
+    <jsp:include page="navigation.jsp"/>
 </header>
 <form class="non-printable" action="reports" method="get" onchange="toggleFields()">
     <label for="reportType">Select Report:</label>
@@ -66,16 +91,19 @@
         <option value="TSBCAP">Sales by Cashier and Period</option>
         <option value="TSBP">Sales by Period</option>
         <option value="TUSBPAP">Units Sold by Product and Period</option>
+        <option value="product-sales">Product Sales</option>
+        <option value="categories-with-sales">Categories with Sales</option>
     </select>
     <div id="dateFields" style="display: none;">
         <label for="startDateInput">Start Date:</label>
-        <input type="date" id="startDateInput" name="startDate" required>
+        <input type="date" id="startDateInput" name="startDate">
         <label for="endDateInput">End Date:</label>
-        <input type="date" id="endDateInput" name="endDate" required>
+        <input type="date" id="endDateInput" name="endDate">
     </div>
     <div id="cashierField" style="display: none;">
         <label for="cashierSelect">Select Cashier:</label>
         <select id="cashierSelect" name="cashierId">
+            <option value="">-- All Cashiers --</option>
             <c:forEach var="cashier" items="${cashiers}">
                 <option value="${cashier.idEmployee}">${cashier.surname} ${cashier.name}</option>
             </c:forEach>
@@ -91,12 +119,21 @@
     </div>
     <button type="submit">Generate Report</button>
 </form>
+<c:if test="${not empty errorMessage}">
+    <div class="error">${errorMessage}</div>
+</c:if>
 <c:if test="${not empty data}">
     <div class="non-printable">
         <button onclick="window.print()">Print Report</button>
     </div>
     <div>
         <p><strong>User:</strong> ${sessionScope.userFullName}</p>
+        <c:if test="${not empty startDate && not empty endDate}">
+            <p><strong>Period:</strong> From ${startDate} to ${endDate}</p>
+        </c:if>
+        <c:if test="${not empty productName}">
+            <p><strong>Product:</strong>${productName}</p>
+        </c:if>
     </div>
     <table border="1">
         <thead>

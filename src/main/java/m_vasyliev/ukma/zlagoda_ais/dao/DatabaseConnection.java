@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     public static Connection initializeDatabase() throws SQLException, ClassNotFoundException {
-        String url = "jdbc:sqlite:resources/zlagoda.db";
+        String url = "jdbc:sqlite:resources/zlagodaa.db";
         Class.forName("org.sqlite.JDBC");
         return DriverManager.getConnection(url);
     }

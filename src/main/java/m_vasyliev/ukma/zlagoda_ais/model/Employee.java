@@ -16,6 +16,25 @@ public class Employee {
     private String dateOfStart;
     private double salary;
 
+    public Employee() {}
+
+    public Employee(String idEmployee, String surname, String name, String patronymic, String role,
+                    String phoneNumber, String city, String street, String zipCode,
+                    String dateOfBirth, String dateOfStart, double salary) {
+        this.idEmployee = idEmployee;
+        this.surname = surname;
+        this.name = name;
+        this.patronymic = patronymic;
+        this.role = role;
+        this.phoneNumber = phoneNumber;
+        this.city = city;
+        this.street = street;
+        this.zipCode = zipCode;
+        this.dateOfBirth = dateOfBirth;
+        this.dateOfStart = dateOfStart;
+        this.salary = salary;
+    }
+
     public String getIdEmployee() {
         return idEmployee;
     }
@@ -108,5 +127,7 @@ public class Employee {
         return salary;
     }
 
-    public void setSalary(double salary) {}
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
 }

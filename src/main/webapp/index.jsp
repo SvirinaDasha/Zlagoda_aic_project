@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="m_vasyliev.ukma.zlagoda_ais.model.User" %>
 <%
   if (session == null || session.getAttribute("user") == null) {
     response.sendRedirect("login.jsp");
     return;
   }
+  User user = (User) session.getAttribute("user");
+  String userRole = user.getRole();
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,54 +35,55 @@
   <section>
     <h2>Quick Links</h2>
     <div class="quick-links">
-      <a href="employees.jsp">
+      <% if ("Manager".equals(userRole)) { %>
+      <a href="employees">
         <div class="quick-link">
           <h3>Employees</h3>
-          <p>Manage employee information.</p>
-        </div>
-      </a>
-      <a href="products">
-        <div class="quick-link">
-          <h3>Products</h3>
-          <p>Manage product information.</p>
-        </div>
-      </a>
-      <a href="store-products">
-        <div class="quick-link">
-          <h3>Store Products</h3>
-          <p>Manage store products and inventory.</p>
         </div>
       </a>
       <a href="categories">
         <div class="quick-link">
           <h3>Categories</h3>
-          <p>Manage product categories.</p>
-        </div>
-      </a>
-      <a href="add-check">
-        <div class="quick-link">
-          <h3>Checks</h3>
-          <p>Manage sales checks.</p>
-        </div>
-      </a>
-      <a href="customers">
-        <div class="quick-link">
-          <h3>Customer Cards</h3>
-          <p>Manage customer cards.</p>
         </div>
       </a>
       <a href="reports">
         <div class="quick-link">
           <h3>Reports</h3>
-          <p>Generate various reports.</p>
         </div>
       </a>
-      <a href="user-profile.jsp">
+      <a href="manage-users">
         <div class="quick-link">
-          <h3>User Profile</h3>
-          <p>View your profile information.</p>
+          <h3>Manage Users</h3>
         </div>
       </a>
+      <% } %>
+      <a href="products">
+        <div class="quick-link">
+          <h3>Products</h3>
+        </div>
+      </a>
+      <a href="store-products">
+        <div class="quick-link">
+          <h3>Store Products</h3>
+        </div>
+      </a>
+      <a href="customers">
+        <div class="quick-link">
+          <h3>Customer Cards</h3>
+        </div>
+      </a>
+      <a href="checks">
+        <div class="quick-link">
+          <h3>Checks</h3>
+        </div>
+      </a>
+      <% if ("Cashier".equals(userRole)) { %>
+      <a href="add-check">
+        <div class="quick-link">
+          <h3>Add Check</h3>
+        </div>
+      </a>
+      <% } %>
     </div>
   </section>
 </main>

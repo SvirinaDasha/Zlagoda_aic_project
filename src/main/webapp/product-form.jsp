@@ -2,8 +2,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%
+    String userRole = ((m_vasyliev.ukma.zlagoda_ais.model.User) session.getAttribute("user")).getRole();
     if (session == null || session.getAttribute("user") == null) {
         response.sendRedirect("login.jsp");
+        return;
+    }
+
+    if (!userRole.equals("Manager")) {
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access denied.");
         return;
     }
 %>
@@ -17,20 +23,7 @@
 <body>
 <header>
     <h1>${product == null ? 'Add New Product' : 'Edit Product'}</h1>
-    <nav>
-        <ul>
-            <li><a href="index.jsp">Home</a></li>
-            <li><a href="employees">Manage Employees</a></li>
-            <li><a href="products">Manage Products</a></li>
-            <li><a href="store-products">Manage Store Products</a></li>
-            <li><a href="categories">Manage Categories</a></li>
-            <li><a href="checks">Manage Checks</a></li>
-            <li><a href="customers">Manage Customer Cards</a></li>
-            <li><a href="reports">Generate Reports</a></li>
-            <li><a href="user-profile">User Profile</a></li>
-            <li><a href="logout">Logout</a></li>
-        </ul>
-    </nav>
+    <jsp:include page="navigation.jsp"/>
 </header>
 <main class="container">
     <form action="products?action=${product == null ? 'insert' : 'update'}" method="post" >

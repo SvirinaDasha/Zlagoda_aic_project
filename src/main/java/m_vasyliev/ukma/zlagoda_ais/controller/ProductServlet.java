@@ -4,12 +4,14 @@ import m_vasyliev.ukma.zlagoda_ais.dao.ProductDAO;
 import m_vasyliev.ukma.zlagoda_ais.dao.CategoryDAO;
 import m_vasyliev.ukma.zlagoda_ais.model.Category;
 import m_vasyliev.ukma.zlagoda_ais.model.Product;
+import m_vasyliev.ukma.zlagoda_ais.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -22,25 +24,49 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        String role = user.getRole();
+
         if(action == null) {
             action = "";
         }
         try {
             switch (action) {
                 case "new":
-                    showNewForm(req, resp);
+                    if (!"Manager".equals(role)) {
+                        resp.sendRedirect("products");
+                    } else {
+                        showNewForm(req, resp);
+                    }
                     break;
                 case "insert":
-                    insertProduct(req, resp);
+                    if (!"Manager".equals(role)) {
+                        resp.sendRedirect("products");
+                    } else {
+                        insertProduct(req, resp);
+                    }
                     break;
                 case "delete":
-                    deleteProduct(req, resp);
+                    if (!"Manager".equals(role)) {
+                        resp.sendRedirect("products");
+                    } else {
+                        deleteProduct(req, resp);
+                    }
                     break;
                 case "edit":
-                    showEditForm(req, resp);
+                    if (!"Manager".equals(role)) {
+                        resp.sendRedirect("products");
+                    } else {
+                        showEditForm(req, resp);
+                    }
                     break;
                 case "update":
-                    updateProduct(req, resp);
+                    if (!"Manager".equals(role)) {
+                        resp.sendRedirect("products");
+                    } else {
+                        updateProduct(req, resp);
+                    }
                     break;
                 case "checkConnection":
                     checkDatabaseConnection(req, resp);
@@ -75,13 +101,13 @@ public class ProductServlet extends HttpServlet {
             int categoryNumber = Integer.parseInt(category);
             listProduct = productDAO.getProductsByCategoryWithCategoryName(categoryNumber);
         } else {
-            listProduct = productDAO.getAllProductsWithCategory("product_name");
+            listProduct = productDAO.getAllProductsWithCategory();
         }
 
         List<Category> listCategory = categoryDAO.getAllCategories();
         req.setAttribute("listProduct", listProduct);
         req.setAttribute("listCategory", listCategory);
-        req.setAttribute("selectedCategory", category); // Передаємо вибрану категорію
+        req.setAttribute("selectedCategory", category);
         req.getRequestDispatcher("/products.jsp").forward(req, resp);
     }
 
@@ -119,8 +145,8 @@ public class ProductServlet extends HttpServlet {
             throws SQLException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         int categoryNumber = Integer.parseInt(req.getParameter("categoryNumber"));
-        String productName = req.getParameter("productName");
-        String characteristics = req.getParameter("characteristics");
+        String productName = new String(req.getParameter("productName").getBytes("ISO-8859-1"), "UTF-8");
+        String characteristics = new String(req.getParameter("characteristics").getBytes("ISO-8859-1"), "UTF-8");
 
         Product product = new Product(id, categoryNumber, productName, characteristics);
         productDAO.updateProduct(product);

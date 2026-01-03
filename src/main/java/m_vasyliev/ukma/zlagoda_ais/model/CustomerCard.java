@@ -11,6 +11,20 @@ public class CustomerCard {
     private String zipCode;
     private int percent;
 
+    public CustomerCard() {
+    }
+
+    public CustomerCard(String cardNumber, String custSurname, String custName, String custPatronymic, String phoneNumber, String city, String street, String zipCode, int percent) {
+        this.cardNumber = cardNumber;
+        this.custSurname = custSurname;
+        this.custName = custName;
+        this.custPatronymic = custPatronymic;
+        this.phoneNumber = phoneNumber;
+        this.city = city;
+        this.street = street;
+        this.zipCode = zipCode;
+        this.percent = percent;
+    }
 
     public String getCardNumber() {
         return cardNumber;

@@ -17,12 +17,7 @@
 <body>
 <header>
   <h1>User Profile</h1>
-  <nav>
-    <ul>
-      <li><a href="index.jsp">Home</a></li>
-      <li><a href="logout">Logout</a></li>
-    </ul>
-  </nav>
+  <jsp:include page="navigation.jsp"/>
 </header>
 <main>
   <section>

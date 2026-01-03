@@ -6,6 +6,10 @@
         response.sendRedirect("login.jsp");
         return;
     }
+    else{
+        String userRole = ((m_vasyliev.ukma.zlagoda_ais.model.User) session.getAttribute("user")).getRole();
+        request.setAttribute("userRole", userRole);
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -17,9 +21,12 @@
 <body>
 <header>
     <h1>Manage Store Products</h1>
+    <jsp:include page="navigation.jsp"/>
 </header>
 <main>
-    <a href="store-products?action=new">Add New Store Product</a>
+    <c:if test="${userRole == 'Manager'}">
+        <a href="store-products?action=new">Add New Store Product</a>
+    </c:if>
     <form action="store-products" method="get">
         <input type="text" name="upcSearch" placeholder="Search by UPC">
         <input type="submit" value="Search">
@@ -75,8 +82,10 @@
                 <td>${storeProduct.productsNumber}</td>
                 <td>${storeProduct.promotionalProduct ? 'Yes' : 'No'}</td>
                 <td>
-                    <a href="store-products?action=edit&upc=${storeProduct.upc}">Edit</a>
-                    <a href="store-products?action=delete&upc=${storeProduct.upc}">Delete</a>
+                    <c:if test="${userRole eq 'Manager'}">
+                        <a href="store-products?action=edit&upc=${storeProduct.upc}">Edit</a>
+                        <a href="store-products?action=delete&upc=${storeProduct.upc}" onclick="return confirm('Are you sure you want to delete this store product?')">Delete</a>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>

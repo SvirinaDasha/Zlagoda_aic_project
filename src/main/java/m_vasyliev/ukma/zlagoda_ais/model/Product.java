@@ -7,17 +7,14 @@ public class Product {
     private String characteristics;
     private String categoryName;
 
-    // Конструктор без параметрів
     public Product() {}
 
-    // Конструктор з параметрами без id (для створення нового продукту)
     public Product(int categoryNumber, String productName, String characteristics) {
         this.categoryNumber = categoryNumber;
         this.productName = productName;
         this.characteristics = characteristics;
     }
 
-    // Конструктор з параметрами з id (для існуючого продукту)
     public Product(int id, int categoryNumber, String productName, String characteristics) {
         this.id = id;
         this.categoryNumber = categoryNumber;
@@ -25,7 +22,6 @@ public class Product {
         this.characteristics = characteristics;
     }
 
-    // Геттери та сеттери
     public int getId() {
         return id;
     }

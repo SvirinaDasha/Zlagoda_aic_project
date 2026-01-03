@@ -20,7 +20,7 @@ public class ProductDAO {
 
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
-        String query = "SELECT * FROM Product";
+        String query = "SELECT * FROM Product ORDER BY product_name";
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
@@ -90,17 +90,11 @@ public class ProductDAO {
 
     public void deleteProduct(int id) {
         String deleteQuery = "DELETE FROM Product WHERE id_product = ?";
-        String resetAutoincrementQuery = "DELETE FROM sqlite_sequence WHERE name='Product'";
 
         try (PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery)) {
 
             deleteStatement.setInt(1, id);
             deleteStatement.executeUpdate();
-
-
-            try (Statement resetStatement = connection.createStatement()) {
-                resetStatement.executeUpdate(resetAutoincrementQuery);
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -153,9 +147,9 @@ public class ProductDAO {
         return products;
     }
 
-    public List<Product> getAllProductsWithCategory(String sort) {
+    public List<Product> getAllProductsWithCategory() {
         List<Product> products = new ArrayList<>();
-        String query = "SELECT p.*, c.category_name FROM Product p JOIN Category c ON p.category_number = c.category_number ORDER BY " + sort;
+        String query = "SELECT p.*, c.category_name FROM Product p LEFT JOIN Category c ON p.category_number = c.category_number ORDER BY product_name";
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {

@@ -7,6 +7,11 @@
     response.sendRedirect("login.jsp");
     return;
   }
+  else{
+    String userRole = ((m_vasyliev.ukma.zlagoda_ais.model.User) session.getAttribute("user")).getRole();
+    request.setAttribute("userRole", userRole);
+  }
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,19 +23,7 @@
 <body>
 <header>
   <h1>Manage Products</h1>
-  <nav>
-    <ul>
-      <li><a href="index.jsp">Home</a></li>
-      <li><a href="employees">Manage Employees</a></li>
-      <li><a href="store-products">Manage Store Products</a></li>
-      <li><a href="categories">Manage Categories</a></li>
-      <li><a href="checks">Manage Checks</a></li>
-      <li><a href="customers">Manage Customer Cards</a></li>
-      <li><a href="reports">Generate Reports</a></li>
-      <li><a href="user-profile">User Profile</a></li>
-      <li><a href="logout">Logout</a></li>
-    </ul>
-  </nav>
+  <jsp:include page="navigation.jsp"/>
 </header>
 <main>
   <section>
@@ -51,7 +44,9 @@
       </div>
       <button type="submit">Apply</button>
     </form>
-    <a href="products?action=new">Add New Product</a>
+    <c:if test="${userRole eq 'Manager'}">
+      <a href="products?action=new">Add New Product</a>
+    </c:if>
     <table border="1">
       <tr>
         <th>ID</th>
@@ -67,8 +62,10 @@
           <td>${product.productName}</td>
           <td>${product.characteristics}</td>
           <td>
-            <a href="products?action=edit&id=${product.id}">Edit</a>
-            <a href="products?action=delete&id=${product.id}">Delete</a>
+            <c:if test="${userRole eq 'Manager'}">
+              <a href="products?action=edit&id=${product.id}">Edit</a>
+              <a href="products?action=delete&id=${product.id}" onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
+            </c:if>
           </td>
         </tr>
       </c:forEach>

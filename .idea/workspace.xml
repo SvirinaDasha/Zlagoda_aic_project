@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="zlagoda_ais:war" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6ec37a63-fab4-4378-b9c1-c11d34db3550" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/CheckServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/LogoutServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/ManageUsersServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dto/CheckDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dto/SaleDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/utils/PasswordUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/check-details.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/checks.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/manage-users.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/user-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/AddCheckServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/AddCheckServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/ProductServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/ProductServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/ReportServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/ReportServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/StoreProductServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/StoreProductServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/UserProfileServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/controller/UserProfileServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/CategoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/CategoryDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/CheckDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/CheckDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/CustomerCardDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/CustomerCardDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/EmployeeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/EmployeeDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/ProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/SaleDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/SaleDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/StoreProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/StoreProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dao/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dto/StoreProductDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/dto/StoreProductDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/Check.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/Check.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/CustomerCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/CustomerCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/Sale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/Sale.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/StoreProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/StoreProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/m_vasyliev/ukma/zlagoda_ais/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/sqlite3.def" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/sqlite3.def" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/add-check.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/add-check.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/employees.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/employees.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/product-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/product-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/products.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/products.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/reports.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/reports.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/store-product-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/store-product-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/store-products.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/store-products.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/user-profile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/user-profile.jsp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "SvirinaDasha"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/mvass-git/zlagoda_ais",
+    "accountId": "ff8a3812-9dde-4a2b-a99c-cc9c4acc5553"
+  }
+}]]></component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="37lDwarRvMdsBKG3Gn8BKelz8Nn" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.zlagoda_ais [clean,install].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Tomcat Server.Tomcat .executor": "Run",
+    "Tomcat Server.Tomcat 9.0.89.executor": "Run",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/dariasvirina/Documents/zlagoda_ais_project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.89">
+    <configuration name="zlagoda_ais [clean,install]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="install" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="Tomcat 9.0.89" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.89" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="zlagoda_ais:war">
+          <settings>
+            <option name="CONTEXT_PATH" value="/zlagoda_ais_war" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="f30b079e-5a87-409a-861b-42349b9a9ea4" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="55746" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="zlagoda_ais:war" />
+        </option>
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Maven.zlagoda_ais [clean,install]" />
+      <item itemvalue="Tomcat Server.Tomcat 9.0.89" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6ec37a63-fab4-4378-b9c1-c11d34db3550" name="Changes" comment="" />
+      <created>1767469003281</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1767469003281</updated>
+      <workItem from="1767469004311" duration="1283000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

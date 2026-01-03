@@ -4,7 +4,28 @@ public class User {
     private int id;
     private String username;
     private String password;
-    private String idEmployee;  // Foreign key to Employee
+    private String idEmployee;
+    private String role;
+
+    public User(String username, String hashedPassword, String idEmployee) {
+        this.username = username;
+        this.password = hashedPassword;
+        this.idEmployee = idEmployee;
+    }
+
+    public User() {
+
+    }
+
+
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public int getId() {
         return id;

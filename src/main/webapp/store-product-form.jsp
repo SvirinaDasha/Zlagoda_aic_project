@@ -2,8 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%
+    String userRole = ((m_vasyliev.ukma.zlagoda_ais.model.User) session.getAttribute("user")).getRole();
     if (session == null || session.getAttribute("user") == null) {
         response.sendRedirect("login.jsp");
+        return;
+    }
+    if (!userRole.equals("Manager")) {
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access denied.");
         return;
     }
 %>
@@ -47,6 +52,7 @@
 <body>
 <header>
     <h1>${storeProduct == null ? 'Add New Store Product' : 'Edit Store Product'}</h1>
+    <jsp:include page="navigation.jsp"/>
 </header>
 <main>
     <c:if test="${not empty error}">
@@ -55,9 +61,6 @@
     <form action="store-products?action=${storeProduct == null ? 'insert' : 'update'}" method="post">
         <label for="upc">UPC:</label>
         <input type="text" id="upc" name="upc" value="${storeProduct != null ? storeProduct.upc : ''}" required>
-        <br>
-        <label for="upcProm">UPC Promotional:</label>
-        <input type="text" id="upcProm" name="upcProm" value="${storeProduct != null ? storeProduct.upcProm : ''}">
         <br>
         <label for="productId">Product:</label>
         <select id="productId" name="productId" required>
